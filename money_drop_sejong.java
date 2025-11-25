@@ -478,6 +478,8 @@ class QuestionSet {
 
 // gui first screen aka game window
 class GameWindow extends JFrame {
+    // initial amount for the user
+    public static AtomicInteger current_amount = new AtomicInteger(1000000);
 
     public CardLayout cardLayout;
     public JPanel mainPanel;  
@@ -597,8 +599,6 @@ class Level_1 extends JPanel {
     public Level_1(GameWindow window, Topics topic) {
         this.topic = topic;
         
-        AtomicInteger current_amount = new AtomicInteger(1000000);
-        
         AtomicInteger initialAmount_1 = new AtomicInteger(0);
         AtomicInteger initialAmount_2 = new AtomicInteger(0);
         AtomicInteger initialAmount_3 = new AtomicInteger(0);
@@ -651,7 +651,7 @@ class Level_1 extends JPanel {
         currentAmount.setBounds(31, 524, 178, 68);
         add(currentAmount);
         
-        JLabel currentAmountMoney = new JLabel(String.valueOf(current_amount.get()));
+        JLabel currentAmountMoney = new JLabel(String.valueOf(GameWindow.current_amount.get()));
         currentAmountMoney.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         currentAmountMoney.setBounds(221, 542, 97, 33);
         add(currentAmountMoney);
@@ -763,11 +763,11 @@ class Level_1 extends JPanel {
         // checkBox 1
         addition_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[0].isSelected() && current_amount.get() >= 100000) {
+                if (checkBox[0].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     initialAmount_1.addAndGet(100000);
-                    current_amount.addAndGet(-100000);
+                    GameWindow.current_amount.addAndGet(-100000);
                     initialValue_1.setText(String.valueOf(initialAmount_1.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -776,9 +776,9 @@ class Level_1 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[0].isSelected() && initialAmount_1.get() >= 100000) {
                     initialAmount_1.addAndGet(-100000);
-                    current_amount.addAndGet(100000);
+                    GameWindow.current_amount.addAndGet(100000);
                     initialValue_1.setText(String.valueOf(initialAmount_1.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -786,11 +786,11 @@ class Level_1 extends JPanel {
         // checkBox 2
         addition_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[1].isSelected() && current_amount.get() >= 100000) {
+                if (checkBox[1].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     initialAmount_2.addAndGet(100000);
-                    current_amount.addAndGet(-100000);
+                    GameWindow.current_amount.addAndGet(-100000);
                     initialValue_2.setText(String.valueOf(initialAmount_2.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -798,9 +798,9 @@ class Level_1 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[1].isSelected() && initialAmount_2.get() >= 100000) {
                     initialAmount_2.addAndGet(-100000);
-                    current_amount.addAndGet(100000);
+                    GameWindow.current_amount.addAndGet(100000);
                     initialValue_2.setText(String.valueOf(initialAmount_2.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
          });
@@ -808,11 +808,11 @@ class Level_1 extends JPanel {
         // checkBox 3
         addition_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[2].isSelected() && current_amount.get() >= 100000) {
+                if (checkBox[2].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     initialAmount_3.addAndGet(100000);
-                    current_amount.addAndGet(-100000);
+                    GameWindow.current_amount.addAndGet(-100000);
                     initialValue_3.setText(String.valueOf(initialAmount_3.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -820,9 +820,9 @@ class Level_1 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[2].isSelected() && initialAmount_3.get() >= 100000) {
                     initialAmount_3.addAndGet(-100000);
-                    current_amount.addAndGet(100000);
+                    GameWindow.current_amount.addAndGet(100000);
                     initialValue_3.setText(String.valueOf(initialAmount_3.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -830,11 +830,11 @@ class Level_1 extends JPanel {
         // checkBox 4
         addition_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[3].isSelected() && current_amount.get() >= 100000) {
+                if (checkBox[3].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     initialAmount_4.addAndGet(100000);
-                    current_amount.addAndGet(-100000);
+                    GameWindow.current_amount.addAndGet(-100000);
                     initialValue_4.setText(String.valueOf(initialAmount_4.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -842,9 +842,9 @@ class Level_1 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[3].isSelected() && initialAmount_4.get() >= 100000) {
                     initialAmount_4.addAndGet(-100000);
-                    current_amount.addAndGet(100000);
+                    GameWindow.current_amount.addAndGet(100000);
                     initialValue_4.setText(String.valueOf(initialAmount_4.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -852,11 +852,11 @@ class Level_1 extends JPanel {
         // checkBox 5
         addition_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[4].isSelected() && current_amount.get() >= 100000) {
+                if (checkBox[4].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     initialAmount_5.addAndGet(100000);
-                    current_amount.addAndGet(-100000);
+                    GameWindow.current_amount.addAndGet(-100000);
                     initialValue_5.setText(String.valueOf(initialAmount_5.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
@@ -864,9 +864,9 @@ class Level_1 extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[4].isSelected() && initialAmount_5.get() >= 100000) {
                     initialAmount_5.addAndGet(-100000);
-                    current_amount.addAndGet(100000);
+                    GameWindow.current_amount.addAndGet(100000);
                     initialValue_5.setText(String.valueOf(initialAmount_5.get()));
-                    currentAmountMoney.setText(String.valueOf(current_amount.get()));
+                    currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
