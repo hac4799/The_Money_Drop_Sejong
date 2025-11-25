@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-interface  Topics {
+interface Topics {
     String[] topics = {
         "Football",
         "Music",
@@ -55,7 +55,7 @@ class Football implements Topics {
     }
 }
 
-class Music implements  Topics{
+class Music implements Topics {
     @Override
     public String Question() {
         return "Who sing a song \"Said I loved you … but I lied\"?";
@@ -76,7 +76,7 @@ class Music implements  Topics{
     }
 }
 
-class Science implements Topics{
+class Science implements Topics {
     @Override
     public String Question() {
         return "What is the primary function of the mitochondria within a eukaryotic cell?";
@@ -97,7 +97,7 @@ class Science implements Topics{
     }
 }
 
-class Movie implements Topics{
+class Movie implements Topics {
     @Override
     public String Question() {
         return "Who won the Academy Award for Best Actor at the 88th Academy Awards (2016) for their performance?";
@@ -118,7 +118,7 @@ class Movie implements Topics{
     }
 }
 
-class NobelPrize implements Topics{
+class NobelPrize implements Topics {
     @Override
     public String Question() {
         return "In which category was Aung San Suu Kyi awarded the Nobel Prize?";
@@ -139,7 +139,7 @@ class NobelPrize implements Topics{
     }
 }
 
-class History implements Topics{
+class History implements Topics {
     @Override
     public String Question() {
         return "What was the name of the last royal dynasty that ruled Myanmar before it was colonized by the British?";
@@ -160,10 +160,10 @@ class History implements Topics{
     }
 }
 
-class Esport implements Topics{
+class Esport implements Topics {
     @Override
     public String Question() {
-        return "Which organization won the Dota 2 tournament known as <The International> in 2023, cementing their status as a new dynasty in the game?";
+        return "Which organization won the Dota 2 tournament known as \"The International\" in 2023, cementing their status as a new dynasty in the game?";
     }
     public String[] Answer() {
         return new String[] {
@@ -181,7 +181,7 @@ class Esport implements Topics{
     }
 }
 
-class Book implements Topics{
+class Book implements Topics {
     @Override
     public String Question() {
         return "Who is the author of the classic 1936 American novel Gone with the Wind?";
@@ -202,7 +202,7 @@ class Book implements Topics{
     }
 }
 
-class Coding implements Topics{
+class Coding implements Topics {
     @Override
     public String Question() {
         return "Which keyword in Java is used to create an object?";
@@ -223,7 +223,7 @@ class Coding implements Topics{
     }
 }
 
-class Badminton implements Topics{
+class Badminton implements Topics {
     @Override
     public String Question() {
         return "In a standard singles badminton match, what is the score a player must reach to win a game?";
@@ -244,10 +244,10 @@ class Badminton implements Topics{
     }
 }
 
-class Poetry implements Topics{
+class Poetry implements Topics {
     @Override
     public String Question() {
-        return "Complete the closing line of the popular modern poem: <You say you love the rain, but you open your umbrella. You say you love me too...>";
+        return "Complete the line of the popular modern poem: \"You say you love the rain, but you open your umbrella. You say you love me too...\"";
     }
     public String[] Answer() {
         return new String[] {
@@ -265,7 +265,7 @@ class Poetry implements Topics{
     }
 }
 
-class Animal implements Topics{
+class Animal implements Topics {
     @Override
     public String Question() {
         return "Which of these is the only mammal capable of true, sustained flight?";
@@ -286,7 +286,7 @@ class Animal implements Topics{
     }
 }
 
-class Car implements Topics{
+class Car implements Topics {
     @Override
     public String Question() {
         return "Which American car manufacturer is credited with launching the first mass-produced automobile, making cars affordable for the middle class?";
@@ -307,7 +307,7 @@ class Car implements Topics{
     }
 }
 
-class Olympic implements Topics{
+class Olympic implements Topics {
     @Override
     public String Question() {
         return "In which city were the modern Olympic Games revived and held for the first time in 1896?";
@@ -328,7 +328,7 @@ class Olympic implements Topics{
     }
 }
 
-class War implements Topics{
+class War implements Topics {
     @Override
     public String Question() {
         return "The D-Day landings of June 6, 1944, were a massive Allied operation intended to liberate which occupied European nation?";
@@ -350,7 +350,6 @@ class War implements Topics{
 }
 
 class TopicFactory {
-
     public static Topics getTopic(String name) {
         switch (name) {
             case "Football": return new Football();
@@ -373,9 +372,7 @@ class TopicFactory {
     }
 }
 
-
 class randomTopic {
-
     private ArrayList<String> list;
 
     public randomTopic() {
@@ -413,47 +410,45 @@ class getCorrectAnswer {
     }
 
     public static String[] getRandomAnswers(Topics t, int numberAnswers) {
-    String[] all = t.Answer();
-    int correctIndex = getCorrectIndex(t);
+        String[] all = t.Answer();
+        int correctIndex = getCorrectIndex(t);
 
-    ArrayList<String> options = new ArrayList<>();
-    Random rand = new Random();
+        ArrayList<String> options = new ArrayList<>();
+        Random rand = new Random();
 
-    // Add correct answer first
-    options.add(all[correctIndex]);
+        // Add correct answer first
+        options.add(all[correctIndex]);
 
-    // Add random wrong answers until we reach desired size
-    while (options.size() < numberAnswers) {
-        int idx = rand.nextInt(all.length);
-        if (idx != correctIndex) {
-            String wrong = all[idx];
-            if (!options.contains(wrong)) {
-                options.add(wrong);
+        // Add random wrong answers until we reach desired size
+        while (options.size() < numberAnswers) {
+            int idx = rand.nextInt(all.length);
+            if (idx != correctIndex) {
+                String wrong = all[idx];
+                if (!options.contains(wrong)) {
+                    options.add(wrong);
+                }
             }
         }
+
+        Collections.shuffle(options);
+        return options.toArray(new String[0]);
     }
-
-    Collections.shuffle(options);
-    return options.toArray(new String[0]);
-}
-
-    public static void printQuestionSet(Topics topic, int answerCount) {
-    System.out.println("Question: " + topic.Question());
-
-    String[] answers = getRandomAnswers(topic, answerCount);
-
-    for (int i = 0; i < answers.length; i++) {
-        System.out.println((i + 1) + ". " + answers[i]);
-    }
-}
-}
-
-class QuestionAnswer {
 
     public static void printQuestionSet(Topics topic, int answerCount) {
         System.out.println("Question: " + topic.Question());
 
-        // Use GetCorrectAnswer to get randomized answers
+        String[] answers = getRandomAnswers(topic, answerCount);
+
+        for (int i = 0; i < answers.length; i++) {
+            System.out.println((i + 1) + ". " + answers[i]);
+        }
+    }
+}
+
+class QuestionAnswer {
+    public static void printQuestionSet(Topics topic, int answerCount) {
+        System.out.println("Question: " + topic.Question());
+
         String[] answers = getCorrectAnswer.getRandomAnswers(topic, answerCount);
 
         for (int i = 0; i < answers.length; i++) {
@@ -475,15 +470,29 @@ class QuestionSet {
     }
 }
 
-
 // gui first screen aka game window
 class GameWindow extends JFrame {
     // initial amount for the user
     public static AtomicInteger current_amount = new AtomicInteger(1000000);
 
     public CardLayout cardLayout;
-    public JPanel mainPanel;  
-    public JPanel firstScreen; 
+    public JPanel mainPanel;
+    public JPanel firstScreen;
+
+    // Add these fields to store level results
+    private boolean[] levelCorrectSelections;
+    private int[] levelBetAmounts;
+    private int levelFinalAmount;
+
+    // Remember topic used in Level_1
+    private Topics level1Topic;
+
+    // Add this method to store results from Level_1
+    public void setLevelResults(boolean[] correctSelections, int[] betAmounts) {
+        this.levelCorrectSelections = correctSelections;
+        this.levelBetAmounts = betAmounts;
+        calculateLevel1FinalAmount();
+    }
 
     public GameWindow() {
 
@@ -518,11 +527,10 @@ class GameWindow extends JFrame {
         // Create Topic_1 first to get the topics, then pass them to Level_1
         Topic_1 topic1Panel = new Topic_1(this);
         mainPanel.add(topic1Panel, "Topic_1");
-        
-        // Level_1 will be created dynamically when needed
-        // mainPanel.add(new Level_1(this), "Level_1"); // Remove this line
-        
-        //mainPanel.add(new Result_1(this), "Result_1");
+
+        // Result_1 will be added dynamically after Level_1 is done
+        // mainPanel.add(new Result_1(this), "Result_1");
+
         //mainPanel.add(new Topic_2(this), "Topic_2");
         //mainPanel.add(new Level_2(this), "Level_2");
         //mainPanel.add(new Result_2(this), "Result_2");
@@ -550,10 +558,51 @@ class GameWindow extends JFrame {
     }
 
     public void showLevel(String levelName, Topics topic) {
+        // Remember topic for Level_1 so we can show correct answer later
+        if ("Level_1".equals(levelName)) {
+            this.level1Topic = topic;
+        }
         // Create Level_1 dynamically with the selected topic
         Level_1 level1Panel = new Level_1(this, topic);
         mainPanel.add(level1Panel, "Level_1");
         showScreen("Level_1");
+    }
+
+    private void calculateLevel1FinalAmount() {
+        int totalWinnings = 0;
+
+        if (levelCorrectSelections != null && levelBetAmounts != null) {
+            for (int i = 0; i < 5; i++) {
+                if (levelCorrectSelections[i] && levelBetAmounts[i] > 0) {
+                    // Player bet on correct answer - they keep this money
+                    totalWinnings += levelBetAmounts[i];
+                }
+                // If they bet on wrong answers, that money is lost
+            }
+        }
+
+        this.levelFinalAmount = totalWinnings;
+        // Update the current amount for the next level
+        current_amount.set(totalWinnings);
+    }
+
+    // Add getter methods for Result_1
+    public boolean[] getLevel1CorrectSelections() { return levelCorrectSelections; }
+    public int[] getLevel1BetAmounts() { return levelBetAmounts; }
+    public int getLevel1FinalAmount() { return levelFinalAmount; }
+
+    // Get correct answer text for Level_1
+    public String getLevel1CorrectAnswerText() {
+        if (level1Topic == null) return "";
+        int idx = getCorrectAnswer.getCorrectIndex(level1Topic);
+        return level1Topic.Answer()[idx];
+    }
+
+    // Show Result_1 after Level_1 is completed
+    public void showResult1() {
+        Result_1 result1 = new Result_1(this);
+        mainPanel.add(result1, "Result_1");
+        showScreen("Result_1");
     }
 
     public static void main(String[] args) {
@@ -593,285 +642,427 @@ class Topic_1 extends JPanel {
     }
 }
 
+class Topic_2 extends JPanel {
+    private String[] topics;
+    private Topics selectedTopic;
+
+    public Topic_2(GameWindow window) {
+
+        setSize(750,600);
+        setLayout(null);
+
+        randomTopic picker = new randomTopic();
+        this.topics = picker.pickTwo();
+
+        JButton firstTopic = new JButton(topics[0]);
+        firstTopic.setBounds(199, 115, 343, 156);
+        firstTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        firstTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[0]);
+            window.showLevel("Level_2", selectedTopic);
+        });
+        add(firstTopic);
+
+        JButton secondTopic = new JButton(topics[1]);
+        secondTopic.setBounds(199, 336, 343, 156);
+        secondTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        secondTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[1]);
+            window.showLevel("Level_2", selectedTopic);
+        });
+        add(secondTopic);
+    }
+}
+
+class Topic_3 extends JPanel {
+    private String[] topics;
+    private Topics selectedTopic;
+
+    public Topic_3(GameWindow window) {
+
+        setSize(750,600);
+        setLayout(null);
+
+        randomTopic picker = new randomTopic();
+        this.topics = picker.pickTwo();
+
+        JButton firstTopic = new JButton(topics[0]);
+        firstTopic.setBounds(199, 115, 343, 156);
+        firstTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        firstTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[0]);
+            window.showLevel("Level_3", selectedTopic);
+        });
+        add(firstTopic);
+
+        JButton secondTopic = new JButton(topics[1]);
+        secondTopic.setBounds(199, 336, 343, 156);
+        secondTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        secondTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[1]);
+            window.showLevel("Level_3", selectedTopic);
+        });
+        add(secondTopic);
+    }
+}
+
+class Topic_4 extends JPanel {
+    private String[] topics;
+    private Topics selectedTopic;
+
+    public Topic_4(GameWindow window) {
+
+        setSize(750,600);
+        setLayout(null);
+
+        randomTopic picker = new randomTopic();
+        this.topics = picker.pickTwo();
+
+        JButton firstTopic = new JButton(topics[0]);
+        firstTopic.setBounds(199, 115, 343, 156);
+        firstTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        firstTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[0]);
+            window.showLevel("Level_4", selectedTopic);
+        });
+        add(firstTopic);
+
+        JButton secondTopic = new JButton(topics[1]);
+        secondTopic.setBounds(199, 336, 343, 156);
+        secondTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        secondTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[1]);
+            window.showLevel("Level_4", selectedTopic);
+        });
+        add(secondTopic);
+    }
+}
+
+class Topic_5 extends JPanel {
+    private String[] topics;
+    private Topics selectedTopic;
+
+    public Topic_5(GameWindow window) {
+
+        setSize(750,600);
+        setLayout(null);
+
+        randomTopic picker = new randomTopic();
+        this.topics = picker.pickTwo();
+
+        JButton firstTopic = new JButton(topics[0]);
+        firstTopic.setBounds(199, 115, 343, 156);
+        firstTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        firstTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[0]);
+            window.showLevel("Level_5", selectedTopic);
+        });
+        add(firstTopic);
+
+        JButton secondTopic = new JButton(topics[1]);
+        secondTopic.setBounds(199, 336, 343, 156);
+        secondTopic.setFont(new Font("Arial", Font.BOLD, 30));
+        secondTopic.addActionListener(e -> {
+            selectedTopic = TopicFactory.getTopic(topics[1]);
+            window.showLevel("Level_5", selectedTopic);
+        });
+        add(secondTopic);
+    }
+}
+
+// can select 4 multiple answers out of 5 multiple answers
 class Level_1 extends JPanel {
     private Topics topic;
+    private AtomicInteger[] betAmounts;
+    private JCheckBox[] checkBox;
+    private String[] answers;
+    private int correctAnswerIndex;
 
     public Level_1(GameWindow window, Topics topic) {
+
         this.topic = topic;
-        
-        AtomicInteger initialAmount_1 = new AtomicInteger(0);
-        AtomicInteger initialAmount_2 = new AtomicInteger(0);
-        AtomicInteger initialAmount_3 = new AtomicInteger(0);
-        AtomicInteger initialAmount_4 = new AtomicInteger(0);
-        AtomicInteger initialAmount_5 = new AtomicInteger(0);
-        
+        this.betAmounts = new AtomicInteger[5];
+        this.correctAnswerIndex = getCorrectAnswer.getCorrectIndex(topic);
+
+        // Initialize betAmounts array
+        for (int i = 0; i < 5; i++) {
+            betAmounts[i] = new AtomicInteger(0);
+        }
+
+        // Initialize the answers array properly
+        this.answers = getCorrectAnswer.getRandomAnswers(topic, 5);
+
         JButton next = new JButton("Submit");
         next.setFont(new Font("Arial", Font.BOLD, 30));
         next.setBounds(388, 521, 198, 72);
         setLayout(null);
         add(next);
-        
-        String[] answers = getCorrectAnswer.getRandomAnswers(topic, 5);
-        
-        JCheckBox[] checkBox = new JCheckBox[5];
-        
+
+        this.checkBox = new JCheckBox[5];
+
         checkBox[0] = new JCheckBox("<html>" + answers[0] + "</html>");
         checkBox[0].setFont(new Font("Arial", Font.PLAIN, 20));
         checkBox[0].setHorizontalAlignment(SwingConstants.LEFT);
         checkBox[0].setBounds(21, 110, 295, 75);
         add(checkBox[0]);
-        
+
         checkBox[1] = new JCheckBox("<html>" + answers[1] + "</html>");
         checkBox[1].setFont(new Font("Arial", Font.PLAIN, 20));
         checkBox[1].setHorizontalAlignment(SwingConstants.LEFT);
         checkBox[1].setBounds(21, 190, 295, 75);
         add(checkBox[1]);
-        
+
         checkBox[2] = new JCheckBox("<html>" + answers[2] + "</html>");
         checkBox[2].setFont(new Font("Arial", Font.PLAIN, 20));
         checkBox[2].setHorizontalAlignment(SwingConstants.LEFT);
         checkBox[2].setBounds(21, 270, 295, 75);
         add(checkBox[2]);
-        
+
         checkBox[3] = new JCheckBox("<html>" + answers[3] + "</html>");
         checkBox[3].setFont(new Font("Arial", Font.PLAIN, 20));
         checkBox[3].setHorizontalAlignment(SwingConstants.LEFT);
         checkBox[3].setBounds(21, 350, 295, 75);
         add(checkBox[3]);
-        
+
         checkBox[4] = new JCheckBox("<html>" + answers[4] + "</html>");
         checkBox[4].setFont(new Font("Arial", Font.PLAIN, 20));
         checkBox[4].setHorizontalAlignment(SwingConstants.LEFT);
         checkBox[4].setBounds(21, 430, 295, 75);
         add(checkBox[4]);
-        
+
         JLabel currentAmount = new JLabel("Current Amount - ");
         currentAmount.setFont(new Font("Annai MN", Font.PLAIN, 20));
         currentAmount.setHorizontalAlignment(SwingConstants.CENTER);
         currentAmount.setBounds(31, 524, 178, 68);
         add(currentAmount);
-        
+
         JLabel currentAmountMoney = new JLabel(String.valueOf(GameWindow.current_amount.get()));
         currentAmountMoney.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         currentAmountMoney.setBounds(221, 542, 97, 33);
         add(currentAmountMoney);
-        
+
         JLabel quesTion = new JLabel("<html>" + topic.Question() + "</html>");
         quesTion.setHorizontalAlignment(SwingConstants.CENTER);
         quesTion.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         quesTion.setVerticalAlignment(SwingConstants.TOP);
-        quesTion.setBounds(38, 32, 548, 79);
+        quesTion.setBounds(38, 32, 550, 79);
         add(quesTion);
-        
+
         JButton addition_1 = new JButton("+");
         addition_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         addition_1.setBounds(328, 120, 60, 60);
         add(addition_1);
-        
+
         JButton subtraction_1 = new JButton("-");
         subtraction_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         subtraction_1.setBounds(526, 120, 60, 60);
         add(subtraction_1);
-        
+
         JButton addition_2 = new JButton("+");
         addition_2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         addition_2.setBounds(328, 200, 60, 60);
         add(addition_2);
-        
+
         JButton addition_3 = new JButton("+");
         addition_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         addition_3.setBounds(328, 280, 60, 60);
         add(addition_3);
-        
+
         JButton addition_4 = new JButton("+");
         addition_4.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         addition_4.setBounds(328, 360, 60, 60);
         add(addition_4);
-        
+
         JButton addition_5 = new JButton("+");
         addition_5.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         addition_5.setBounds(328, 440, 60, 60);
         add(addition_5);
-        
+
         JButton subtraction_2 = new JButton("-");
         subtraction_2.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         subtraction_2.setBounds(526, 200, 60, 60);
         add(subtraction_2);
-        
+
         JButton subtraction_3 = new JButton("-");
         subtraction_3.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         subtraction_3.setBounds(526, 280, 60, 60);
         add(subtraction_3);
-        
+
         JButton subtraction_4 = new JButton("-");
         subtraction_4.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         subtraction_4.setBounds(526, 360, 60, 60);
         add(subtraction_4);
-        
+
         JButton subtraction_5 = new JButton("-");
         subtraction_5.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         subtraction_5.setBounds(526, 440, 60, 60);
         add(subtraction_5);
-        
-        JLabel initialValue_1 = new JLabel(String.valueOf(initialAmount_1.get()));
+
+        JLabel initialValue_1 = new JLabel(String.valueOf(betAmounts[0].get()));
         initialValue_1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
         initialValue_1.setHorizontalAlignment(SwingConstants.CENTER);
         initialValue_1.setBounds(400, 120, 114, 60);
         add(initialValue_1);
-        
-        JLabel initialValue_2 = new JLabel(String.valueOf(initialAmount_2.get()));
+
+        JLabel initialValue_2 = new JLabel(String.valueOf(betAmounts[1].get()));
         initialValue_2.setHorizontalAlignment(SwingConstants.CENTER);
         initialValue_2.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
         initialValue_2.setBounds(400, 200, 114, 60);
         add(initialValue_2);
-        
-        JLabel initialValue_3 = new JLabel(String.valueOf(initialAmount_3.get()));
+
+        JLabel initialValue_3 = new JLabel(String.valueOf(betAmounts[2].get()));
         initialValue_3.setHorizontalAlignment(SwingConstants.CENTER);
         initialValue_3.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
         initialValue_3.setBounds(400, 280, 114, 60);
         add(initialValue_3);
-        
-        JLabel initialValue_4 = new JLabel(String.valueOf(initialAmount_4.get()));
+
+        JLabel initialValue_4 = new JLabel(String.valueOf(betAmounts[3].get()));
         initialValue_4.setHorizontalAlignment(SwingConstants.CENTER);
         initialValue_4.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
         initialValue_4.setBounds(400, 360, 114, 60);
         add(initialValue_4);
-        
-        JLabel initialValue_5 = new JLabel(String.valueOf(initialAmount_5.get()));
+
+        JLabel initialValue_5 = new JLabel(String.valueOf(betAmounts[4].get()));
         initialValue_5.setHorizontalAlignment(SwingConstants.CENTER);
         initialValue_5.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
         initialValue_5.setBounds(400, 440, 114, 60);
         add(initialValue_5);
-        
+
         for (JCheckBox cb : checkBox) {
             cb.addActionListener(e -> {
-                int selectedCount = countSelectedCheckboxes(checkBox);  
+                int selectedCount = countSelectedCheckboxes(checkBox);
                 if (selectedCount >= 5 && ((JCheckBox)e.getSource()).isSelected()) {
                     ((JCheckBox)e.getSource()).setSelected(false);
                 }
             });
         }
-        
+
         next.addActionListener(e -> {
             int selectedCount = countSelectedCheckboxes(checkBox);
-            
+
             if (selectedCount >= 1 && selectedCount <= 4) {
-                window.showScreen("Result_1");
-            } 
+                boolean[] correctSelections = calculateCorrectSelections();
+                int[] betAmountsArray = getBetAmountsArray();
+
+                // Store the data in GameWindow to pass to Result_1
+                window.setLevelResults(correctSelections, betAmountsArray);
+                // Show Result_1 screen after setting results
+                window.showResult1();
+            }
         });
-        
+
         // checkBox 1
         addition_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[0].isSelected() && GameWindow.current_amount.get() >= 100000) {
-                    initialAmount_1.addAndGet(100000);
+                    betAmounts[0].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
-                    initialValue_1.setText(String.valueOf(initialAmount_1.get()));
+                    initialValue_1.setText(String.valueOf(betAmounts[0].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
-        
+
         subtraction_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[0].isSelected() && initialAmount_1.get() >= 100000) {
-                    initialAmount_1.addAndGet(-100000);
+                if (checkBox[0].isSelected() && betAmounts[0].get() >= 100000) {
+                    betAmounts[0].addAndGet(-100000);
                     GameWindow.current_amount.addAndGet(100000);
-                    initialValue_1.setText(String.valueOf(initialAmount_1.get()));
+                    initialValue_1.setText(String.valueOf(betAmounts[0].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
-        
+
         // checkBox 2
         addition_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[1].isSelected() && GameWindow.current_amount.get() >= 100000) {
-                    initialAmount_2.addAndGet(100000);
+                    betAmounts[1].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
-                    initialValue_2.setText(String.valueOf(initialAmount_2.get()));
+                    initialValue_2.setText(String.valueOf(betAmounts[1].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
         subtraction_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[1].isSelected() && initialAmount_2.get() >= 100000) {
-                    initialAmount_2.addAndGet(-100000);
+                if (checkBox[1].isSelected() && betAmounts[1].get() >= 100000) {
+                    betAmounts[1].addAndGet(-100000);
                     GameWindow.current_amount.addAndGet(100000);
-                    initialValue_2.setText(String.valueOf(initialAmount_2.get()));
+                    initialValue_2.setText(String.valueOf(betAmounts[1].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
-         });
-        
+        });
+
         // checkBox 3
         addition_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[2].isSelected() && GameWindow.current_amount.get() >= 100000) {
-                    initialAmount_3.addAndGet(100000);
+                    betAmounts[2].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
-                    initialValue_3.setText(String.valueOf(initialAmount_3.get()));
+                    initialValue_3.setText(String.valueOf(betAmounts[2].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
         subtraction_3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[2].isSelected() && initialAmount_3.get() >= 100000) {
-                    initialAmount_3.addAndGet(-100000);
+                if (checkBox[2].isSelected() && betAmounts[2].get() >= 100000) {
+                    betAmounts[2].addAndGet(-100000);
                     GameWindow.current_amount.addAndGet(100000);
-                    initialValue_3.setText(String.valueOf(initialAmount_3.get()));
+                    initialValue_3.setText(String.valueOf(betAmounts[2].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
-        
+
         // checkBox 4
         addition_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[3].isSelected() && GameWindow.current_amount.get() >= 100000) {
-                    initialAmount_4.addAndGet(100000);
+                    betAmounts[3].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
-                    initialValue_4.setText(String.valueOf(initialAmount_4.get()));
+                    initialValue_4.setText(String.valueOf(betAmounts[3].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
         subtraction_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[3].isSelected() && initialAmount_4.get() >= 100000) {
-                    initialAmount_4.addAndGet(-100000);
+                if (checkBox[3].isSelected() && betAmounts[3].get() >= 100000) {
+                    betAmounts[3].addAndGet(-100000);
                     GameWindow.current_amount.addAndGet(100000);
-                    initialValue_4.setText(String.valueOf(initialAmount_4.get()));
+                    initialValue_4.setText(String.valueOf(betAmounts[3].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
-        
+
         // checkBox 5
         addition_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (checkBox[4].isSelected() && GameWindow.current_amount.get() >= 100000) {
-                    initialAmount_5.addAndGet(100000);
+                    betAmounts[4].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
-                    initialValue_5.setText(String.valueOf(initialAmount_5.get()));
+                    initialValue_5.setText(String.valueOf(betAmounts[4].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
         subtraction_5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (checkBox[4].isSelected() && initialAmount_5.get() >= 100000) {
-                    initialAmount_5.addAndGet(-100000);
+                if (checkBox[4].isSelected() && betAmounts[4].get() >= 100000) {
+                    betAmounts[4].addAndGet(-100000);
                     GameWindow.current_amount.addAndGet(100000);
-                    initialValue_5.setText(String.valueOf(initialAmount_5.get()));
+                    initialValue_5.setText(String.valueOf(betAmounts[4].get()));
                     currentAmountMoney.setText(String.valueOf(GameWindow.current_amount.get()));
                 }
             }
         });
     }
-    
+
     private int countSelectedCheckboxes(JCheckBox[] checkboxes) {
         int count = 0;
         for (JCheckBox cb : checkboxes) {
@@ -880,6 +1071,76 @@ class Level_1 extends JPanel {
             }
         }
         return count;
+    }
+
+    private boolean[] calculateCorrectSelections() {
+        boolean[] correct = new boolean[5];
+        // Find which shuffled answers correspond to the correct answer
+        String correctAnswerText = topic.Answer()[correctAnswerIndex];
+
+        for (int i = 0; i < answers.length; i++) {
+            correct[i] = answers[i].equals(correctAnswerText);
+        }
+        return correct;
+    }
+
+    private int[] getBetAmountsArray() {
+        int[] amounts = new int[5];
+        for (int i = 0; i < 5; i++) {
+            amounts[i] = betAmounts[i].get();
+        }
+        return amounts;
+    }
+}
+
+class Result_1 extends JPanel {
+
+    public Result_1(GameWindow window) {
+
+        setLayout(null);
+
+        // Get the results from GameWindow
+        int finalAmount = window.getLevel1FinalAmount();
+        boolean[] correctSelections = window.getLevel1CorrectSelections();
+        int[] betAmounts = window.getLevel1BetAmounts();
+        String correctAnswerText = window.getLevel1CorrectAnswerText();
+
+        JButton next = new JButton("Next Level");
+        next.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+        next.setBounds(499, 524, 198, 72);
+        next.addActionListener(e -> window.showScreen("Topic_2"));
+        add(next);
+
+        JLabel lblNewLabel = new JLabel("The Correct Answer ");
+        lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+        lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        lblNewLabel.setBounds(31, 151, 397, 107);
+        add(lblNewLabel);
+
+        JLabel currentAmount = new JLabel("Current Amount - ");
+        currentAmount.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+        currentAmount.setHorizontalAlignment(SwingConstants.LEFT);
+        currentAmount.setBounds(31, 524, 271, 68);
+        add(currentAmount);
+
+        // Show correct answer text here
+        JLabel lblNewLabel_1 = new JLabel("<html>" + correctAnswerText + "</html>");
+        lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+        lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+        lblNewLabel_1.setBounds(41, 270, 656, 144);
+        add(lblNewLabel_1);
+
+        JLabel currentAmountMoney = new JLabel(String.valueOf(finalAmount));
+        currentAmountMoney.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+        currentAmountMoney.setHorizontalAlignment(SwingConstants.LEFT);
+        currentAmountMoney.setBounds(310, 541, 177, 40);
+        add(currentAmountMoney);
+
+        JLabel lblNewLabel_2 = new JLabel("Level 1");
+        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_2.setFont(new Font("Lucida Grande", Font.BOLD, 50));
+        lblNewLabel_2.setBounds(238, 25, 209, 125);
+        add(lblNewLabel_2);
     }
 }
 
