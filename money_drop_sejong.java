@@ -422,8 +422,10 @@ class getCorrectAnswer {
         // Add random wrong answers until we reach desired size
         while (options.size() < numberAnswers) {
             int idx = rand.nextInt(all.length);
+            // skip the correct
             if (idx != correctIndex) {
                 String wrong = all[idx];
+                // duplicates
                 if (!options.contains(wrong)) {
                     options.add(wrong);
                 }
@@ -470,29 +472,29 @@ class QuestionSet {
     }
 }
 
-// ================= GAME WINDOW =================
+//GAME WINDOW
 class GameWindow extends JFrame {
     // initial amount for the user
-    public static AtomicInteger current_amount = new AtomicInteger(1000000);
+    public static AtomicInteger current_amount = new AtomicInteger(1000000); // share all level
 
     public CardLayout cardLayout;
     public JPanel mainPanel;
     public JPanel firstScreen;
 
     // Store level results (for the *current* level)
-    private boolean[] levelCorrectSelections;
+    private boolean[] levelCorrectSelections; // answer wrong/ right
     private int[] levelBetAmounts;
     private int levelFinalAmount;
 
     // Store topics per level and which level's result we are showing
     private Topics[] levelTopics = new Topics[5];
-    private int currentLevelIndex = -1;
+    private int currentLevelIndex = -1; // which level we are on
 
-    // Store results from any level
+    // when player submit answers in a level
     public void setLevelResults(boolean[] correctSelections, int[] betAmounts) {
-        this.levelCorrectSelections = correctSelections;
-        this.levelBetAmounts = betAmounts;
-        calculateLevelFinalAmount();
+        this.levelCorrectSelections = correctSelections; // which ansewrs correct
+        this.levelBetAmounts = betAmounts; // bet amount for each answer
+        calculateLevelFinalAmount(); // how much player still have 
     }
 
     public GameWindow() {
@@ -522,7 +524,7 @@ class GameWindow extends JFrame {
 
         firstScreen.add(startButton);
 
-        // ======= ADD SCREENS TO mainPanel =======
+        // ADD SCREENS TO mainPanel
         mainPanel.add(firstScreen, "Start");
 
         // Topics for each level
@@ -559,7 +561,7 @@ class GameWindow extends JFrame {
     // Show a Level panel depending on levelName
     public void showLevel(String levelName, Topics topic) {
 
-        int idx = -1;
+        int idx = -1; // which level is this
         if ("Level_1".equals(levelName)) idx = 0;
         else if ("Level_2".equals(levelName)) idx = 1;
         else if ("Level_3".equals(levelName)) idx = 2;
@@ -567,8 +569,8 @@ class GameWindow extends JFrame {
         else if ("Level_5".equals(levelName)) idx = 4;
 
         if (idx != -1) {
-            currentLevelIndex = idx;
-            levelTopics[idx] = topic;
+            currentLevelIndex = idx; // track current level
+            levelTopics[idx] = topic; // which topic was used
         }
 
         JPanel levelPanel = null;
@@ -593,10 +595,11 @@ class GameWindow extends JFrame {
     private void calculateLevelFinalAmount() {
         int totalWinnings = 0;
 
+        // for each answer
         if (levelCorrectSelections != null && levelBetAmounts != null) {
             for (int i = 0; i < levelCorrectSelections.length; i++) {
+                // if bet on it and it is correct, keep that
                 if (levelCorrectSelections[i] && levelBetAmounts[i] > 0) {
-                    // Player bet on correct answer - they keep this money
                     totalWinnings += levelBetAmounts[i];
                 }
             }
@@ -615,7 +618,7 @@ class GameWindow extends JFrame {
     // Get correct answer text for *current* level
     public String getLevelCorrectAnswerText() {
         if (currentLevelIndex < 0 || currentLevelIndex >= levelTopics.length) return "";
-        Topics t = levelTopics[currentLevelIndex];
+        Topics t = levelTopics[currentLevelIndex]; // get topic for this level
         if (t == null) return "";
         int idx = getCorrectAnswer.getCorrectIndex(t);
         return t.Answer()[idx];
@@ -657,8 +660,7 @@ class GameWindow extends JFrame {
     }
 }
 
-// ================= TOPIC PANELS =================
-
+//TOPIC PANELS
 class Topic_1 extends JPanel {
     private String[] topics;
     private Topics selectedTopic;
@@ -822,24 +824,22 @@ class Topic_5 extends JPanel {
 // can select max 4 answers out of 5
 class Level_1 extends JPanel {
     private Topics topic;
-    private AtomicInteger[] betAmounts;
+    private AtomicInteger[] betAmounts; // bet on each answers 5
     private JCheckBox[] checkBox;
     private String[] answers;
-    private int correctAnswerIndex;
+    private int correctAnswerIndex; // index of correct answer
 
     public Level_1(GameWindow window, Topics topic) {
 
-        this.topic = topic;
+        this.topic = topic; // store topic object passed from Topic_1
         this.betAmounts = new AtomicInteger[5];
-        this.correctAnswerIndex = getCorrectAnswer.getCorrectIndex(topic);
+        this.correctAnswerIndex = getCorrectAnswer.getCorrectIndex(topic); // correct answer
 
-        // Initialize betAmounts array
         for (int i = 0; i < 5; i++) {
             betAmounts[i] = new AtomicInteger(0);
         }
 
-        // Initialize the answers array properly
-        this.answers = getCorrectAnswer.getRandomAnswers(topic, 5);
+        this.answers = getCorrectAnswer.getRandomAnswers(topic, 5); // get 5 random including correct one
 
         JButton next = new JButton("Submit");
         next.setFont(new Font("Arial", Font.BOLD, 30));
@@ -988,11 +988,12 @@ class Level_1 extends JPanel {
         }
 
         next.addActionListener(e -> {
+            // how many answers are selected
             int selectedCount = countSelectedCheckboxes(checkBox);
 
             if (selectedCount >= 1 && selectedCount <= 4) {
-                boolean[] correctSelections = calculateCorrectSelections();
-                int[] betAmountsArray = getBetAmountsArray();
+                boolean[] correctSelections = calculateCorrectSelections(); // which answers were correct
+                int[] betAmountsArray = getBetAmountsArray(); // bet get amounts
 
                 // Store the data in GameWindow to pass to Result_1
                 window.setLevelResults(correctSelections, betAmountsArray);
@@ -1004,6 +1005,7 @@ class Level_1 extends JPanel {
         // checkBox 1
         addition_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // check for every answer
                 if (checkBox[0].isSelected() && GameWindow.current_amount.get() >= 100000) {
                     betAmounts[0].addAndGet(100000);
                     GameWindow.current_amount.addAndGet(-100000);
@@ -1124,18 +1126,17 @@ class Level_1 extends JPanel {
     }
 
     private boolean[] calculateCorrectSelections() {
-        boolean[] correct = new boolean[5];
-        // Find which shuffled answers correspond to the correct answer
-        String correctAnswerText = topic.Answer()[correctAnswerIndex];
+        boolean[] correct = new boolean[5]; // 5 answers
+        String correctAnswerText = topic.Answer()[correctAnswerIndex]; // answer name to display in level
 
         for (int i = 0; i < answers.length; i++) {
-            correct[i] = answers[i].equals(correctAnswerText);
+            correct[i] = answers[i].equals(correctAnswerText); // the correct answer
         }
         return correct;
     }
 
     private int[] getBetAmountsArray() {
-        int[] amounts = new int[5];
+        int[] amounts = new int[5]; // convert AtomicInteger to regular int
         for (int i = 0; i < 5; i++) {
             amounts[i] = betAmounts[i].get();
         }
@@ -2094,10 +2095,10 @@ class Result_1 extends JPanel {
         setLayout(null);
 
         // Get the results from GameWindow
-        int finalAmount = window.getLevelFinalAmount();
-        boolean[] correctSelections = window.getLevelCorrectSelections();
-        int[] betAmounts = window.getLevelBetAmounts();
-        String correctAnswerText = window.getLevelCorrectAnswerText();
+        int finalAmount = window.getLevelFinalAmount(); // money from level_1
+        boolean[] correctSelections = window.getLevelCorrectSelections(); // correct answer
+        int[] betAmounts = window.getLevelBetAmounts(); // how much bet on each answer
+        String correctAnswerText = window.getLevelCorrectAnswerText(); // text the correct answer
 
         JButton next = new JButton("Next Level");
         next.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
